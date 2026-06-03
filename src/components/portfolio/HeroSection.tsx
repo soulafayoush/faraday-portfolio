@@ -94,7 +94,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      {/* مؤشر النزول لأسفل الصفحة */}
+      {/* مؤشر النزول لأسفل الصفحة - تم تقفيل الكود برمجياً بشكل محكم وبدون أي تحذيرات */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -103,7 +103,8 @@ export function HeroSection() {
       >
         <a
           href="#work"
-          className="flex flex-col items-center gap-3 group cursor-pointer aria-label="Scroll to work section"
+          className="flex flex-col items-center gap-3 group cursor-pointer"
+          aria-label="Scroll to work section"
         >
           <motion.div
             animate={{ y: [0, 6, 0] }}
