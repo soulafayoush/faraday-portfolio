@@ -1,0 +1,460 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ===== DARK THEME (Default - Luxury Carbon Black) ===== */
+:root,
+.dark {
+  --background: #050505;
+  --foreground: #F5F5F7;
+  --card: #0A0A0A;
+  --card-foreground: #F5F5F7;
+  --popover: #0A0A0A;
+  --popover-foreground: #F5F5F7;
+  --primary: #F5F5F7;
+  --primary-foreground: #050505;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #F5F5F7;
+  --muted: #1A1A1A;
+  --muted-foreground: #86868B;
+  --accent: #6B21A8;
+  --accent-foreground: #F5F5F7;
+  --destructive: #7F1D1D;
+  --border: rgba(255, 255, 255, 0.06);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: #A855F7;
+  --chart-1: #6B21A8;
+  --chart-2: #A855F7;
+  --chart-3: #C084FC;
+  --chart-4: #86868B;
+  --chart-5: #F5F5F7;
+  --sidebar: #0A0A0A;
+  --sidebar-foreground: #F5F5F7;
+  --sidebar-primary: #6B21A8;
+  --sidebar-primary-foreground: #F5F5F7;
+  --sidebar-accent: #1A1A1A;
+  --sidebar-accent-foreground: #F5F5F7;
+  --sidebar-border: rgba(255, 255, 255, 0.06);
+  --sidebar-ring: #A855F7;
+
+  /* Custom luxury CSS variables */
+  --color-primary-text: #F5F5F7;
+  --color-secondary-text: #86868B;
+  --color-accent-text: #A855F7;
+  --color-emerald-accent: #34D399;
+  --color-gold-accent: #FBBF24;
+  --color-background-base: #050505;
+  --color-card-surface: #0C0C0E;
+  --color-card-border: rgba(255, 255, 255, 0.08);
+  --color-card-border-hover: rgba(168, 85, 247, 0.3);
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-accent: rgba(168, 85, 247, 0.15);
+  --color-hover-glow: rgba(168, 85, 247, 0.08);
+  --color-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --color-shadow-card-hover: 0 16px 48px rgba(107, 33, 168, 0.15), 0 4px 16px rgba(0, 0, 0, 0.3);
+  --color-shadow-glow: 0 0 40px rgba(168, 85, 247, 0.1);
+  --color-nav-bg: rgba(5, 5, 5, 0.8);
+  --color-nav-border: rgba(255, 255, 255, 0.04);
+}
+
+/* ===== LIGHT THEME (Clean Minimalist) ===== */
+.light {
+  --background: #FAFAFA;
+  --foreground: #1A1A1A;
+  --card: #FFFFFF;
+  --card-foreground: #1A1A1A;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A1A1A;
+  --primary: #1A1A1A;
+  --primary-foreground: #FAFAFA;
+  --secondary: #F0F0F0;
+  --secondary-foreground: #1A1A1A;
+  --muted: #F0F0F0;
+  --muted-foreground: #6B6B6B;
+  --accent: #6B21A8;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: #7C3AED;
+  --chart-1: #6B21A8;
+  --chart-2: #A855F7;
+  --chart-3: #C084FC;
+  --chart-4: #86868B;
+  --chart-5: #1A1A1A;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A1A1A;
+  --sidebar-primary: #6B21A8;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0F0F0;
+  --sidebar-accent-foreground: #1A1A1A;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-ring: #7C3AED;
+
+  /* Custom luxury CSS variables for light mode */
+  --color-primary-text: #1A1A1A;
+  --color-secondary-text: #6B6B6B;
+  --color-accent-text: #7C3AED;
+  --color-emerald-accent: #059669;
+  --color-gold-accent: #D97706;
+  --color-background-base: #FAFAFA;
+  --color-card-surface: #FFFFFF;
+  --color-card-border: rgba(0, 0, 0, 0.08);
+  --color-card-border-hover: rgba(124, 58, 237, 0.35);
+  --color-border-subtle: rgba(0, 0, 0, 0.06);
+  --color-border-accent: rgba(124, 58, 237, 0.12);
+  --color-hover-glow: rgba(124, 58, 237, 0.05);
+  --color-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --color-shadow-card-hover: 0 16px 48px rgba(124, 58, 237, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
+  --color-shadow-glow: 0 0 40px rgba(124, 58, 237, 0.06);
+  --color-nav-bg: rgba(250, 250, 250, 0.85);
+  --color-nav-border: rgba(0, 0, 0, 0.06);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+}
+
+/* ===== Custom Selection Color ===== */
+::selection {
+  background: rgba(168, 85, 247, 0.3);
+  color: #F5F5F7;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(134, 134, 139, 0.3);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(134, 134, 139, 0.5);
+}
+
+/* ===== Cormorant Garamond Font Utility ===== */
+.font-cormorant {
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+}
+
+/* ===== Smooth Scroll ===== */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Luxury Card with Backdrop Shadow ===== */
+.luxury-card {
+  position: relative;
+  background: var(--color-card-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: 12px;
+  box-shadow: var(--color-shadow-card);
+  transition: all 0.6s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+.luxury-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 13px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.0) 0%,
+    rgba(168, 85, 247, 0.0) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  transition: background 0.6s cubic-bezier(0.25, 0.4, 0.25, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.luxury-card:hover {
+  border-color: var(--color-card-border-hover);
+  box-shadow: var(--color-shadow-card-hover), var(--color-shadow-glow);
+  transform: translateY(-2px);
+}
+
+.luxury-card:hover::before {
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.3) 0%,
+    rgba(168, 85, 247, 0.0) 50%,
+    rgba(52, 211, 153, 0.15) 100%
+  );
+}
+
+/* ===== Metric Badge ===== */
+.metric-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--color-card-border);
+  background: var(--color-card-surface);
+  transition: all 0.5s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+.metric-badge.positive {
+  color: var(--color-emerald-accent);
+  border-color: rgba(52, 211, 153, 0.15);
+  background: rgba(52, 211, 153, 0.04);
+}
+
+.metric-badge.purple {
+  color: var(--color-accent-text);
+  border-color: rgba(168, 85, 247, 0.15);
+  background: rgba(168, 85, 247, 0.04);
+}
+
+.metric-badge.gold {
+  color: var(--color-gold-accent);
+  border-color: rgba(251, 191, 36, 0.15);
+  background: rgba(251, 191, 36, 0.04);
+}
+
+.group:hover .metric-badge {
+  border-color: rgba(168, 85, 247, 0.25);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.06);
+}
+
+/* ===== Floating Image Card ===== */
+.floating-image-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 10px 24px rgba(0, 0, 0, 0.3),
+    0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(2px);
+  transition: box-shadow 0.5s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+.floating-image-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.2) 0%,
+    rgba(255, 255, 255, 0.0) 40%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ===== Section Divider ===== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border-accent) 20%,
+    var(--color-card-border) 50%,
+    var(--color-border-accent) 80%,
+    transparent 100%
+  );
+}
+
+/* ===== Glass Nav Bar ===== */
+.glass-nav {
+  background: var(--color-nav-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--color-nav-border);
+  transition: all 0.4s ease;
+}
+
+.glass-nav:hover {
+  border-bottom-color: var(--color-card-border-hover);
+}
+
+/* ===== Accent Gradient Text ===== */
+.accent-gradient {
+  background: linear-gradient(135deg, #A855F7 0%, #C084FC 50%, #34D399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.accent-gradient-gold {
+  background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #D97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.accent-gradient-emerald {
+  background: linear-gradient(135deg, #34D399 0%, #10B981 50%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Hover Underline ===== */
+.hover-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #A855F7, transparent);
+  transition: all 0.5s cubic-bezier(0.25, 0.4, 0.25, 1);
+  transform: translateX(-50%);
+}
+
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* ===== Project Row ===== */
+.project-row {
+  position: relative;
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: all 0.5s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+.project-row::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, #A855F7, #34D399, transparent);
+  transition: width 0.6s cubic-bezier(0.25, 0.4, 0.25, 1);
+}
+
+.project-row:hover::before {
+  width: 100%;
+}
+
+.project-row:hover {
+  background: var(--color-hover-glow);
+}
+
+/* ===== Animated Corner Borders ===== */
+.corner-border {
+  position: relative;
+}
+
+.corner-border::before,
+.corner-border::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--color-card-border);
+  transition: border-color 0.5s ease, width 0.5s ease, height 0.5s ease;
+}
+
+.corner-border::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-color: var(--color-border-accent);
+}
+
+.corner-border::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+  border-color: var(--color-border-accent);
+}
+
+.corner-border:hover::before,
+.corner-border:hover::after {
+  border-color: var(--color-accent-text);
+}
+
+/* ===== Trusted By Logo Scroll Animation ===== */
+@keyframes scroll-x {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 25s linear infinite;
+}
+
+.animate-scroll-x:hover {
+  animation-play-state: paused;
+}
