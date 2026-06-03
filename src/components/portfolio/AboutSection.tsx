@@ -5,22 +5,26 @@ import Image from 'next/image';
 import { useLanguage } from './LanguageProvider';
 import { CountUp } from './CountUp';
 
+// نقل إعدادات الحركة خارج المكون يمنع إعادة إنشائها مع كل Render ويحمي الـ Types بالكامل
+const fadeInVariant = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as const } // قفل مصفوفة الـ ease لـ TypeScript
+  }
+};
+
 export function AboutSection() {
   const { t, dir } = useLanguage();
 
-  // تحسين طريقة تعريف المصفوفة مع الحفاظ التام على المسميات والـ Types
+  // تحسين طريقة تعريف مصفوفة الإحصائيات الفاخرة وحماية أنواعها
   const stats = [
     { value: t.about.stats.companies, label: t.about.stats.companiesLabel, type: 'emerald' },
     { value: t.about.stats.capital, label: t.about.stats.capitalLabel, type: 'purple' },
     { value: t.about.stats.years, label: t.about.stats.yearsLabel, type: 'gold' },
     { value: t.about.stats.exits, label: t.about.stats.exitsLabel, type: 'emerald' },
-  ] as const; // استخدام as const هنا مرة واحدة يشمل المصفوفة بالكامل ويحمي الـ Types
-
-  // إعدادات حركة موحدة وسلسة للحفاظ على نظافة الكود واستهلاك الذاكرة
-  const fadeInVariant = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1] } }
-  };
+  ] as const;
 
   return (
     <section
@@ -36,7 +40,7 @@ export function AboutSection() {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-40px' }} // تحسين الـ margin ليعمل بنعومة على الشاشات الصغيرة والكبيرة
+          viewport={{ once: true, margin: '-40px' }}
           variants={fadeInVariant}
           className="mb-16 md:mb-20 flex items-center gap-4"
         >
@@ -57,7 +61,6 @@ export function AboutSection() {
             transition={{ duration: 1, ease: [0.25, 0.4, 0.25, 1] }}
             className="lg:w-5/12 shrink-0"
           >
-            {/* التأكد من إضافة relative هنا برمجياً لدعم وسم Image fill بشكل صارم */}
             <div className="floating-image-card relative w-full aspect-[3/4] max-w-[380px] mx-auto lg:mx-0 overflow-hidden rounded-xl">
               <Image
                 src="/images/profile-portrait.png"
