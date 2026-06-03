@@ -25,25 +25,29 @@ function getSavedLocale(): Locale {
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [locale, setLocaleState] = useState<Locale>('en');
 
+  // تعديل الدالة لتحديث الحالة وحفظ الكوكي فقط، وترك تحديث الـ DOM للـ useEffect
   const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale);
-    document.documentElement.lang = newLocale;
-    document.documentElement.dir = newLocale === 'ar' ? 'rtl' : 'ltr';
-    document.cookie = `locale=${newLocale};path=/;max-age=31536000`;
+    document.cookie = `locale=${newLocale};path=/;max-age=31536000;SameSite=Lax`; // إضافة SameSite لمعايير الأمان الحديثة
   }, []);
 
-  // Read saved locale on mount using requestAnimationFrame callback
+  // 1. useEffect: لقراءة اللغة المحفوظة عند تفعيل المكون لأول مرة
   useEffect(() => {
     const id = requestAnimationFrame(() => {
       const saved = getSavedLocale();
-      if (saved !== 'en') {
-        setLocaleState(saved);
-        document.documentElement.lang = saved;
-        document.documentElement.dir = saved === 'ar' ? 'rtl' : 'ltr';
-      }
+      setLocaleState(saved);
     });
     return () => cancelAnimationFrame(id);
   }, []);
+
+  // 2. useEffect: مراقبة وتحديث خصائص الـ HTML (lang & dir) تلقائياً عند تغير الـ locale
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const currentDir = locale === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = locale;
+    document.documentElement.dir = currentDir;
+  }, [locale]);
 
   const t = translations[locale];
   const dir = locale === 'ar' ? 'rtl' : 'ltr';
@@ -58,6 +62,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 export function useLanguage() {
   const context = useContext(LanguageContext);
   if (!context) {
+    
     throw new Error('useLanguage must be used within a LanguageProvider');
   }
   return context;

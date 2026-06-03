@@ -90,12 +90,16 @@
   --color-card-border-hover: rgba(168, 85, 247, 0.3);
   --color-border-subtle: rgba(255, 255, 255, 0.06);
   --color-border-accent: rgba(168, 85, 247, 0.15);
-  --color-hover-glow: rgba(168, 85, 247, 0.08);
-  --color-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --color-hover-glow: rgba(168, 85, 247, 0.03);
+  --color-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
   --color-shadow-card-hover: 0 16px 48px rgba(107, 33, 168, 0.15), 0 4px 16px rgba(0, 0, 0, 0.3);
   --color-shadow-glow: 0 0 40px rgba(168, 85, 247, 0.1);
   --color-nav-bg: rgba(5, 5, 5, 0.8);
   --color-nav-border: rgba(255, 255, 255, 0.04);
+
+  /* متغيّر لون إضاءة إطار الكارت الفاخر عند الـ Hover للوضع المظلم */
+  --card-gradient-start: rgba(168, 85, 247, 0.3);
+  --card-gradient-end: rgba(52, 211, 153, 0.15);
 }
 
 /* ===== LIGHT THEME (Clean Minimalist) ===== */
@@ -144,18 +148,23 @@
   --color-card-border-hover: rgba(124, 58, 237, 0.35);
   --color-border-subtle: rgba(0, 0, 0, 0.06);
   --color-border-accent: rgba(124, 58, 237, 0.12);
-  --color-hover-glow: rgba(124, 58, 237, 0.05);
-  --color-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
-  --color-shadow-card-hover: 0 16px 48px rgba(124, 58, 237, 0.08), 0 4px 16px rgba(0, 0, 0, 0.06);
-  --color-shadow-glow: 0 0 40px rgba(124, 58, 237, 0.06);
+  --color-hover-glow: rgba(124, 58, 237, 0.02);
+  --color-shadow-card: 0 8px 32px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
+  --color-shadow-card-hover: 0 16px 48px rgba(124, 58, 237, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --color-shadow-glow: 0 0 40px rgba(124, 58, 237, 0.04);
   --color-nav-bg: rgba(250, 250, 250, 0.85);
-  --color-nav-border: rgba(0, 0, 0, 0.06);
+  --color-nav-border: rgba(0, 0, 0, 0.04);
+
+  /* متغيّر لون إضاءة إطار الكارت الفاخر عند الـ Hover للوضع المضيء لتكون أنعم على العين */
+  --card-gradient-start: rgba(124, 58, 237, 0.25);
+  --card-gradient-end: rgba(5, 150, 105, 0.1);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
@@ -164,7 +173,7 @@
 
 /* ===== Custom Selection Color ===== */
 ::selection {
-  background: rgba(168, 85, 247, 0.3);
+  background: rgba(168, 85, 247, 0.25);
   color: #F5F5F7;
 }
 
@@ -198,7 +207,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ===== Luxury Card with Backdrop Shadow ===== */
+/* ===== Luxury Card with Backdrop Shadow & Safari Compatibiltiy ===== */
 .luxury-card {
   position: relative;
   background: var(--color-card-surface);
@@ -214,15 +223,16 @@ html {
   inset: -1px;
   border-radius: 13px;
   padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(168, 85, 247, 0.0) 0%,
-    rgba(168, 85, 247, 0.0) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(168, 85, 247, 0.0) 0%,
+      rgba(168, 85, 247, 0.0) 100%);
+  /* تأمين تشغيل الـ Card Border Glow على متصفحات Safari بكل سلاسة */
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
+  /* متوافق مع نسخ سفاري وأجهزة آبل المحمولة القديمة */
   transition: background 0.6s cubic-bezier(0.25, 0.4, 0.25, 1);
   pointer-events: none;
   z-index: 1;
@@ -235,12 +245,10 @@ html {
 }
 
 .luxury-card:hover::before {
-  background: linear-gradient(
-    135deg,
-    rgba(168, 85, 247, 0.3) 0%,
-    rgba(168, 85, 247, 0.0) 50%,
-    rgba(52, 211, 153, 0.15) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--card-gradient-start) 0%,
+      rgba(168, 85, 247, 0.0) 50%,
+      var(--card-gradient-end) 100%);
 }
 
 /* ===== Metric Badge ===== */
@@ -285,7 +293,7 @@ html {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 
+  box-shadow:
     0 25px 60px rgba(0, 0, 0, 0.5),
     0 10px 24px rgba(0, 0, 0, 0.3),
     0 0 1px rgba(255, 255, 255, 0.1),
@@ -300,30 +308,27 @@ html {
   inset: 0;
   border-radius: 16px;
   padding: 1px;
-  background: linear-gradient(
-    135deg,
-    rgba(168, 85, 247, 0.2) 0%,
-    rgba(255, 255, 255, 0.0) 40%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(168, 85, 247, 0.2) 0%,
+      rgba(255, 255, 255, 0.0) 40%,
+      rgba(255, 255, 255, 0.05) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
+  -webkit-mask-composite: destination-out;
   pointer-events: none;
 }
 
 /* ===== Section Divider ===== */
 .section-divider {
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--color-border-accent) 20%,
-    var(--color-card-border) 50%,
-    var(--color-border-accent) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--color-border-accent) 20%,
+      var(--color-card-border) 50%,
+      var(--color-border-accent) 80%,
+      transparent 100%);
 }
 
 /* ===== Glass Nav Bar ===== */
@@ -445,16 +450,28 @@ html {
   border-color: var(--color-accent-text);
 }
 
-/* ===== Trusted By Logo Scroll Animation ===== */
-@keyframes scroll-x {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* ===== Trusted By Logo Scroll Animation (RTL & LTR Optimized) ===== */
+@keyframes scroll-x-ltr {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(-100% / 3));
+  }
 }
 
+@keyframes scroll-x-rtl {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(calc(100% / 3));
+  }
+}
+
+/* ربط كلاسات الأنيميشن الافتراضية للتوافق السريع في حال استدعائها يدوياً */
 .animate-scroll-x {
-  animation: scroll-x 25s linear infinite;
-}
-
-.animate-scroll-x:hover {
-  animation-play-state: paused;
+  animation: scroll-x-ltr 25s linear infinite;
 }

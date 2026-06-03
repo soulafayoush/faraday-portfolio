@@ -1,4 +1,3 @@
-'use client';
 
 import { Navigation } from '@/components/portfolio/Navigation';
 import { HeroSection } from '@/components/portfolio/HeroSection';
@@ -13,16 +12,29 @@ import { FooterSection } from '@/components/portfolio/FooterSection';
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-background-base)' }}>
+    <main 
+      className="min-h-screen flex flex-col relative w-full isolate" 
+      style={{ backgroundColor: 'var(--color-background-base)' }}
+    >
+      {/* المكونات تم الحفاظ على ترتيبها ومسمياتها بالكامل لضمان الانسيابية البصرية المخطط لها */}
       <Navigation />
+      
       <HeroSection />
+      
       <AboutSection />
+      
       <TrustedBySection />
+      
       <ProcessSection />
+      
       <SelectedWork />
+      
       <TestimonialsSection />
+      
       <CTASection />
+      
       <JournalSection />
+      
       <FooterSection />
     </main>
   );

@@ -13,7 +13,7 @@ export function LanguageSwitcher() {
   return (
     <button
       onClick={toggle}
-      className="flex items-center gap-2 text-sm transition-all duration-500 group cursor-pointer px-3 py-1.5 rounded-lg border"
+      className="flex items-center justify-center gap-2 text-sm transition-all duration-500 group cursor-pointer px-3 py-1.5 rounded-lg border w-[76px] will-change-transform hover:shadow-[0_0_15px_rgba(168,85,247,0.03)]"
       style={{
         color: 'var(--color-secondary-text)',
         borderColor: 'var(--color-card-border)',
@@ -21,8 +21,11 @@ export function LanguageSwitcher() {
       }}
       aria-label={locale === 'en' ? 'Switch to Arabic' : 'التبديل إلى الإنجليزية'}
     >
-      <Globe className="w-3.5 h-3.5 transition-colors duration-500 group-hover:text-[#A855F7]" />
-      <span className="text-xs tracking-wider transition-colors duration-500 group-hover:text-[#F5F5F7]">
+      {/* أيقونة الكرة الأرضية التفاعلية */}
+      <Globe className="w-3.5 h-3.5 transition-colors duration-500 group-hover:text-[#A855F7] shrink-0" />
+      
+      {/* اسم اللغة مع إلغاء الـ Selection العشوائي */}
+      <span className="text-xs tracking-wider transition-colors duration-500 group-hover:text-[#F5F5F7] select-none font-medium">
         {locale === 'en' ? 'عربي' : 'EN'}
       </span>
     </button>

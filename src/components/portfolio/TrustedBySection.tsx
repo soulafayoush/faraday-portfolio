@@ -16,14 +16,15 @@ export function TrustedBySection() {
       {/* Section divider */}
       <div className="section-divider mb-16 md:mb-20" />
 
+      {/* Heading - توحيد الـ viewport لسرعة تفاعل الموبايل */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 1, ease: [0.25, 0.4, 0.25, 1] }}
         className="mb-12 text-center"
       >
-        <div className="flex items-center justify-center gap-4 mb-4">
+        <div className="flex items-center justify-center gap-4 mb-4 select-none">
           <p className="text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--color-secondary-text)' }}>
             {t.trustedBy.heading}
           </p>
@@ -31,30 +32,38 @@ export function TrustedBySection() {
         </div>
       </motion.div>
 
-      {/* Scrolling Logo Strip */}
-      <div className="relative">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+      {/* Scrolling Logo Strip الحاضن الأساسي */}
+      <div className="relative w-full overflow-hidden">
+        
+        {/* التلاشي الأيسر الثابت هندسياً لضمان النعومة الفاخرة للأطراف */}
+        <div 
+          className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none transition-all duration-300"
           style={{
-            background: dir === 'rtl'
-              ? 'linear-gradient(to right, var(--color-background-base), transparent)'
-              : 'linear-gradient(to left, var(--color-background-base), transparent)',
+            background: 'linear-gradient(to right, var(--color-background-base), transparent)',
           }}
         />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+        
+        {/* التلاشي الأيمن الثابت هندسياً */}
+        <div 
+          className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none transition-all duration-300"
           style={{
-            background: dir === 'rtl'
-              ? 'linear-gradient(to left, var(--color-background-base), transparent)'
-              : 'linear-gradient(to right, var(--color-background-base), transparent)',
+            background: 'linear-gradient(to left, var(--color-background-base), transparent)',
           }}
         />
 
-        {/* Scrolling track */}
-        <div className="flex animate-scroll-x">
-          {[...LOGOS, ...LOGOS].map((logo, i) => (
-            <div key={i} className="shrink-0 flex items-center justify-center px-8 md:px-12">
-              <span className="text-sm md:text-base tracking-[0.2em] uppercase whitespace-nowrap transition-colors duration-300 hover:text-[#A855F7] cursor-default"
-                style={{ color: 'var(--color-secondary-text)', opacity: 0.35 }}
+        {/* مسار التحريك اللانهائي: تم تكرار المصفوفة 3 مرات لتغطية الشاشات العريضة جداً (Ultra-wide)
+          واستخدام كلاس تحريك مرن يتعامل مع اتجاه الصفحة تلقائياً
+        */}
+        <div 
+          className={`flex w-max gap-0 will-change-transform ${
+            dir === 'rtl' ? 'animate-[scroll-x-rtl_30s_linear_infinite]' : 'animate-[scroll-x-ltr_30s_linear_infinite]'
+          } hover:[animation-play-state:paused]`}
+        >
+          {[...LOGOS, ...LOGOS, ...LOGOS].map((logo, i) => (
+            <div key={i} className="shrink-0 flex items-center justify-center px-8 md:px-14 select-none">
+              <span 
+                className="text-sm md:text-base tracking-[0.2em] uppercase whitespace-nowrap transition-all duration-500 hover:text-[#A855F7] hover:opacity-100 cursor-default font-medium"
+                style={{ color: 'var(--color-secondary-text)', opacity: 0.3 }}
               >
                 {logo}
               </span>

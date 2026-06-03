@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google"; // دمج الخط الفاخر محلياً
 import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import { LanguageProvider } from "@/components/portfolio/LanguageProvider";
@@ -14,6 +14,16 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// تهيئة الخط الفاخر من خلال محرك الأداء الرسمي لـ Next.js لمنع الـ Layout Shift
+const cormorantGaramond = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap", // يضمن تحميل النص فوراً دون أي حجب بصري
+});
+
+// الحفاظ التام والكامل على كافة مسميات وبيانات الـ Metadata دون تغيير حرف واحد
 export const metadata: Metadata = {
   title: "Alexander Faraday — Growth & VC Consultant",
   description: "Strategic growth advisory and venture capital consulting for next-generation companies. Based in Geneva, Switzerland.",
@@ -38,24 +48,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap"
-          rel="stylesheet"
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              :root {
-                --font-cormorant: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-              }
-            `,
-          }}
-        />
+        {/* تم حذف روابط Google Fonts التقليدية لأن الخط أصبح مدمجاً ومحسناً محلياً بالأعلى */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${cormorantGaramond.variable} antialiased`}
+        style={{ background: "#050505" }} // إعطاء لون خلفية مبدئي صلب يطابق ثيم الكربون الفاخر لمنع وميض الشاشة الأبيض أثناء التحميل الأولى
       >
         <ThemeProvider
           attribute="class"

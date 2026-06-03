@@ -8,12 +8,19 @@ import { CountUp } from './CountUp';
 export function AboutSection() {
   const { t, dir } = useLanguage();
 
+  // تحسين طريقة تعريف المصفوفة مع الحفاظ التام على المسميات والـ Types
   const stats = [
-    { value: t.about.stats.companies, label: t.about.stats.companiesLabel, type: 'emerald' as const },
-    { value: t.about.stats.capital, label: t.about.stats.capitalLabel, type: 'purple' as const },
-    { value: t.about.stats.years, label: t.about.stats.yearsLabel, type: 'gold' as const },
-    { value: t.about.stats.exits, label: t.about.stats.exitsLabel, type: 'emerald' as const },
-  ];
+    { value: t.about.stats.companies, label: t.about.stats.companiesLabel, type: 'emerald' },
+    { value: t.about.stats.capital, label: t.about.stats.capitalLabel, type: 'purple' },
+    { value: t.about.stats.years, label: t.about.stats.yearsLabel, type: 'gold' },
+    { value: t.about.stats.exits, label: t.about.stats.exitsLabel, type: 'emerald' },
+  ] as const; // استخدام as const هنا مرة واحدة يشمل المصفوفة بالكامل ويحمي الـ Types
+
+  // إعدادات حركة موحدة وسلسة للحفاظ على نظافة الكود واستهلاك الذاكرة
+  const fadeInVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1] } }
+  };
 
   return (
     <section
@@ -27,10 +34,10 @@ export function AboutSection() {
       <div className="max-w-6xl mx-auto">
         {/* Heading */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 1 }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }} // تحسين الـ margin ليعمل بنعومة على الشاشات الصغيرة والكبيرة
+          variants={fadeInVariant}
           className="mb-16 md:mb-20 flex items-center gap-4"
         >
           <h2 className="text-xs tracking-[0.3em] uppercase" style={{ color: 'var(--color-secondary-text)' }}>
@@ -41,32 +48,34 @@ export function AboutSection() {
 
         {/* Split Layout: Image + Bio */}
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 mb-24 md:mb-32">
+          
           {/* Profile Image */}
           <motion.div
             initial={{ opacity: 0, x: dir === 'rtl' ? 30 : -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 1 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 1, ease: [0.25, 0.4, 0.25, 1] }}
             className="lg:w-5/12 shrink-0"
           >
-            <div className="floating-image-card w-full aspect-[3/4] max-w-[380px] mx-auto lg:mx-0">
+            {/* التأكد من إضافة relative هنا برمجياً لدعم وسم Image fill بشكل صارم */}
+            <div className="floating-image-card relative w-full aspect-[3/4] max-w-[380px] mx-auto lg:mx-0 overflow-hidden rounded-xl">
               <Image
                 src="/images/profile-portrait.png"
                 alt="Alexander Faraday"
                 fill
-                className="object-cover object-top"
+                className="object-cover object-top transition-transform duration-700 hover:scale-105"
                 sizes="(max-width: 1024px) 380px, 380px"
                 priority
               />
               {/* Subtle overlay */}
-              <div className="absolute inset-0"
-                style={{
-                  background: 'linear-gradient(to top, rgba(5, 5, 5, 0.5) 0%, transparent 40%)',
-                }}
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{ background: 'linear-gradient(to top, rgba(5, 5, 5, 0.6) 0%, transparent 40%)' }}
               />
               {/* Name badge */}
-              <div className="absolute bottom-6 left-6 right-6">
-                <div className="px-4 py-3 rounded-lg"
+              <div className="absolute bottom-6 left-6 right-6 z-10">
+                <div 
+                  className="px-4 py-3 rounded-lg"
                   style={{
                     background: 'rgba(0, 0, 0, 0.5)',
                     backdropFilter: 'blur(12px)',
@@ -88,8 +97,8 @@ export function AboutSection() {
           <motion.div
             initial={{ opacity: 0, x: dir === 'rtl' ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
-            transition={{ duration: 1, delay: 0.2 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.25, 0.4, 0.25, 1] }}
             className="lg:w-7/12 flex flex-col justify-center"
           >
             <p className="text-base md:text-lg leading-relaxed md:leading-[1.9]"
@@ -101,7 +110,7 @@ export function AboutSection() {
             {/* Inline tags */}
             <div className="flex flex-wrap gap-3 mt-8">
               {t.about.tags.map((tag) => (
-                <span key={tag} className="metric-badge purple">{tag}</span>
+                <span key={tag} className="metric-badge purple select-none">{tag}</span>
               ))}
             </div>
           </motion.div>
@@ -112,10 +121,10 @@ export function AboutSection() {
           {stats.map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
+              transition={{ duration: 0.6, delay: i * 0.08, ease: 'easeOut' }}
               className="luxury-card p-6 md:p-8 text-center"
             >
               <p className={`text-3xl md:text-4xl font-bold mb-2 ${
